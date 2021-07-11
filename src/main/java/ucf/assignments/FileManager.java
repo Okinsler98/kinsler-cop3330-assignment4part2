@@ -5,39 +5,55 @@
 
 package ucf.assignments;
 
-public class FileManager {
-    //Create pointer to file
+import java.io.*;
+import java.util.Scanner;
 
-    public String readFile(String fileName){
+
+public class FileManager {
+
+    public String readFile(String fileName) throws FileNotFoundException {
         //Locate file using fileName
-        //If file is not found create file
+        File fileInput = new File(fileName);
+        //Return nothing if file does not exist
+        if (!fileInput.exists()){
+            return "";
+        }
+        //Create File Scanner
+        Scanner fileReader = new Scanner(fileInput);
+        String output  = new String();
         //Read text in file to String
+        while (fileReader.hasNextLine()) {
+            output += fileReader.nextLine();
+        }
         //Close file
+        fileReader.close();
         //Return String
-        return "String";
+        return output;
     }
 
-    public void exportFile(String fileName, String fileText){
+    public void exportFile(String fileName, String fileText) throws IOException {
         //Locate file using fileName
-        //If file is not found create file
+        File fileInput = new File(fileName);
+        //Create File Scanner
+        FileWriter fileWriter = new FileWriter(fileInput);
+        //Delete and create new file
+        if (fileInput.exists()){
+            fileInput.delete();
+        }
+        fileInput.createNewFile();
         //Write fileText to file
+        fileWriter.write(fileText);
         //Close file
+        fileWriter.close();
     }
 
     public void renameFile(String fileName, String newName){
         //Locate file using fileName
+        File fileInput = new File(fileName);
+        //Create new fileName using old directory
+        File newFile = new File(fileInput.getPath() + newName);
         //Change name of file to newName
+        fileInput.renameTo(newFile);
         //Close file
-    }
-
-    public void createFile(String fileName){
-        //Locate file using fileName
-        //If no file found create file using fileName
-    }
-
-    public void deleteFile(String fileName){
-        //Locate file using fileName
-        //If no file found return
-        //Delete file with name equal to fileName
     }
 }
