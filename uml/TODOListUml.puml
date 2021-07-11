@@ -1,0 +1,56 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+org.javafx.Application <|--App
+
+ListManager *-> ListItem
+ListManager <-- FileManager
+GuiManager *-> ListManager
+App -- GuiManager
+
+Class App{
+    main()
+    start()
+}
+
+Class FileManager{
+    File : Pointer
+
+    readFile()
+    exportFile()
+    renameFile()
+    createFile()
+    deleteFile()
+}
+
+Class GuiManager{
+    model : ListManager
+}
+
+Class ListManager{
+ListItem : Collection
+
+importList()
+exportList()
+createItem()
+deleteItem()
+changeItemStatus()
+editItemName()
+editItemDate()
+editItemDescription()
+sortList()
+}
+
+Class ListItem{
+    name : String
+    description : String
+    dueDate : String
+    status : Boolean
+
+    updateName(String)
+    updateDescription(String)
+    updateDueDate(String)
+    toString()
+}
+
+@enduml
