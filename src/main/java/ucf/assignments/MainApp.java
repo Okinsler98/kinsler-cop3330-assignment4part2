@@ -18,6 +18,10 @@ import java.util.Objects;
 public class MainApp extends Application{
     @Override
     public void start(Stage primaryStage) throws Exception {
+        FXMLLoader loader = new FXMLLoader();
+        GuiManager controller = new GuiManager();
+        loader.setController(controller);
+
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("MainApp.fxml")));
 
         Scene appScene = new Scene(root);
