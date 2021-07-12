@@ -12,10 +12,11 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+import java.io.IOException;
 import java.util.Objects;
 
-public class MainApp extends Application{
-    @Override
+public class MainApp{// extends Application{
+    /*@Override
     public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("MainApp.fxml")));
 
@@ -25,9 +26,11 @@ public class MainApp extends Application{
         primaryStage.initStyle(StageStyle.TRANSPARENT);
         primaryStage.setScene(appScene);
         primaryStage.show();
-    }
+    }*/
 
-    public static void main(String[] args) {
-        MainApp.launch(args);
+    public static void main(String[] args) throws IOException {
+        ListManager lManager = new ListManager();
+        lManager.exportList();
+        //MainApp.launch(args);
     }
 }

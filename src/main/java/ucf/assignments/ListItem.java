@@ -4,7 +4,7 @@ public class ListItem {
     String name;
     String description;
     String dueDate;
-    Boolean status = false;
+    Boolean status;
 
     public void updateName(String newName){
         //Change name to new name
@@ -24,13 +24,5 @@ public class ListItem {
     public void changeStatus(){
         //Invert boolean
         status = !status;
-    }
-
-    public String toString(){
-        String output = new String();
-        //Set output to name, description, and due date
-        output = "||" + name + "||" + description + "||" + dueDate;
-        //Return output
-        return "String";
     }
 }
