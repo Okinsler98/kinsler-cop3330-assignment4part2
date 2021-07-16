@@ -64,7 +64,7 @@ public class GuiManager {
         for (int i = 0; i < lManager.items.size(); i++){
             dateView.getItems().add(lManager.items.get(i).dueDate);
         }
-        lManager.items.get(itemSelected).status = completeCheck.selectedProperty().get();
+        lManager.changeItemStatus(itemSelected, completeCheck.selectedProperty().get());
     }
 
     @FXML

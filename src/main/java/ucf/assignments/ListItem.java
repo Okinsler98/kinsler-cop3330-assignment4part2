@@ -21,8 +21,8 @@ public class ListItem {
         dueDate = newDate;
     }
 
-    public void changeStatus(){
+    public void changeStatus(boolean  newStatus){
         //Invert boolean
-        status = !status;
+        status = newStatus;
     }
 }

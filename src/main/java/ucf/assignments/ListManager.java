@@ -55,10 +55,10 @@ public class ListManager {
         items.remove(listItem);
     }
 
-    public void changeItemStatus(int listItem){
+    public void changeItemStatus(int listItem, boolean newStatus){
         //Locate item in collection using listItem integer
         //invert boolean state of status
-        items.get(listItem).changeStatus();
+        items.get(listItem).changeStatus(newStatus);
     }
 
     public void editItemName(int listItem, String newName){
@@ -77,9 +77,5 @@ public class ListManager {
         //Locate item in collection using listItem integer
         //change item description
         items.get(listItem).updateDescription(newDesc);
-    }
-
-    public void sortList(){
-        //Sort collection by date
     }
 }
