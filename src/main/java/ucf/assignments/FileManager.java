@@ -46,14 +46,4 @@ public class FileManager {
         //Close file
         fileWriter.close();
     }
-
-    public void renameFile(String fileName, String newName){
-        //Locate file using fileName
-        File fileInput = new File(fileName);
-        //Create new fileName using old directory
-        File newFile = new File(fileInput.getPath() + newName);
-        //Change name of file to newName
-        fileInput.renameTo(newFile);
-        //Close file
-    }
 }

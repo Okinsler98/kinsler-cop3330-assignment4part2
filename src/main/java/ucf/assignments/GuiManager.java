@@ -5,8 +5,6 @@
 
 package ucf.assignments;
 
-import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.DatePicker;
@@ -23,62 +21,110 @@ public class GuiManager {
     @FXML private TextField descBox;
     @FXML private TextField dateViewer;
     @FXML private DatePicker dateSelector;
-    @FXML private ListView listView;
+    @FXML private ListView<String> itemView;
+    @FXML private ListView<String> dateView;
     @FXML private TextField directBox;
     @FXML private CheckBox completeCheck;
+
     private int itemSelected = 0;
 
     @FXML
-    public void createNewListItem(ActionEvent event){
-        lManager.createItem("New Task", "Default Description", "2021-11-07");
-        listView.getItems().clear();
+    public void createNewListItem(){
+        //Create new item with default values
+        lManager.createItem("New Task", "Default Task Description", "");
+
+        //Clear and refill items list
+        itemView.getItems().clear();
         for (int i = 0; i < lManager.items.size(); i++){
-            listView.getItems().add(lManager.items.get(i).name);
+            itemView.getItems().add(lManager.items.get(i).name);
+        }
+        //Clear and refill dates list
+        dateView.getItems().clear();
+        for (int i = 0; i < lManager.items.size(); i++){
+            dateView.getItems().add(lManager.items.get(i).dueDate);
         }
     }
 
     @FXML
-    public void submitButton(Event e){
+    public void updateItem(){
         lManager.editItemName(itemSelected, itemBox.getText());
         lManager.editItemDescription(itemSelected, descBox.getText());
-        lManager.editItemDate(itemSelected, dateSelector.getValue().getYear() + "-" + dateSelector.getValue().getMonthValue() + "-" + dateSelector.getValue().getDayOfMonth());
-        listView.getItems().clear();
-        for (int i = 0; i < lManager.items.size(); i++){
-            listView.getItems().add(lManager.items.get(i).name);
+        if (dateSelector.getValue() != null){
+            lManager.editItemDate(itemSelected, dateSelector.getValue().getYear() + "-" + dateSelector.getValue().getMonthValue() + "-" + dateSelector.getValue().getDayOfMonth());
         }
+
+        //Clear and refill items list
+        itemView.getItems().clear();
+        for (int i = 0; i < lManager.items.size(); i++){
+            itemView.getItems().add(lManager.items.get(i).name);
+        }
+
+        //Clear and refill dates list
+        dateView.getItems().clear();
+        for (int i = 0; i < lManager.items.size(); i++){
+            dateView.getItems().add(lManager.items.get(i).dueDate);
+        }
+        lManager.items.get(itemSelected).status = completeCheck.selectedProperty().get();
     }
 
     @FXML
-    public void getDirectory(Event e) {
+    public void getDirectory() {
+        //get file from directory box
         lManager.fileDir = directBox.getText();
     }
 
     @FXML
-    public void saveButton(Event e) throws IOException {
+    public void saveButton() throws IOException {
+        //get file from directory box
         lManager.fileDir = directBox.getText();
+        //export file
         lManager.exportList();
     }
 
     @FXML
-    public void importButton(Event e) throws FileNotFoundException {
+    public void importButton() throws FileNotFoundException {
+        //get file from directory box
         lManager.fileDir = directBox.getText();
+        //import file
         lManager.importList();
     }
 
     @FXML
-    public void clearButton(Event e) throws FileNotFoundException {
+    public void deleteButton() {
+        //delete selected item in array
+        lManager.deleteItem(itemSelected);
+
+        //Clear and refill items list
+        itemView.getItems().clear();
+        for (int i = 0; i < lManager.items.size(); i++){
+            itemView.getItems().add(lManager.items.get(i).name);
+        }
+
+        //Clear and refill date list
+        dateView.getItems().clear();
+        for (int i = 0; i < lManager.items.size(); i++){
+            dateView.getItems().add(lManager.items.get(i).dueDate);
+        }
+    }
+
+    @FXML
+    public void clearButton() {
+        //Delete item list array
         for (int i = 0; i < lManager.items.size() ; i++){
             lManager.deleteItem(i);
         }
-        listView.getItems().clear();
+        //clear list view
+        itemView.getItems().clear();
+        dateView.getItems().clear();
+
     }
 
     @FXML
-    public void nextItem(Event e) throws FileNotFoundException {
-        itemSelected++;
-        if (itemSelected > lManager.items.size()){
-            itemSelected = lManager.items.size();
-        }
+    public void itemSelection() {
+        //Get selected listview selected item
+        itemSelected = itemView.getSelectionModel().getSelectedIndex();
+
+        //update info for selected item
         itemBox.setText(lManager.items.get(itemSelected).name);
         descBox.setText(lManager.items.get(itemSelected).description);
         dateViewer.setText(lManager.items.get(itemSelected).dueDate);
@@ -86,21 +132,55 @@ public class GuiManager {
     }
 
     @FXML
-    public void prevItem(Event e) throws FileNotFoundException {
-        itemSelected--;
-        if (itemSelected < 0){
-            itemSelected = 0;
+    public void sortCompete() {
+        //Clear and refill complete items list
+        itemView.getItems().clear();
+        for (int i = 0; i < lManager.items.size(); i++){
+            if (lManager.items.get(i).status){
+                itemView.getItems().add(lManager.items.get(i).name);
+            }
         }
-        itemBox.setText(lManager.items.get(itemSelected).name);
-        descBox.setText(lManager.items.get(itemSelected).description);
-        dateViewer.setText(lManager.items.get(itemSelected).dueDate);
-        completeCheck.setSelected(lManager.items.get(itemSelected).status);
+
+        //Clear and refill date list
+        dateView.getItems().clear();
+        for (int i = 0; i < lManager.items.size(); i++){
+            if (lManager.items.get(i).status){
+                dateView.getItems().add(lManager.items.get(i).dueDate);
+            }
+        }
     }
 
     @FXML
-    public void changeStatus(Event e) throws FileNotFoundException {
-        lManager.changeItemStatus(itemSelected);
+    public void sortIncomplete() {
+        //Clear and refill incomplete items list
+        itemView.getItems().clear();
+        for (int i = 0; i < lManager.items.size(); i++){
+            if (!lManager.items.get(i).status){
+                itemView.getItems().add(lManager.items.get(i).name);
+            }
+        }
+
+        //Clear and refill date list
+        dateView.getItems().clear();
+        for (int i = 0; i < lManager.items.size(); i++){
+            if (!lManager.items.get(i).status){
+                dateView.getItems().add(lManager.items.get(i).dueDate);
+            }
+        }
     }
 
+    @FXML
+    public void refreshList() {
+        //Clear and refill items list
+        itemView.getItems().clear();
+        for (int i = 0; i < lManager.items.size(); i++){
+            itemView.getItems().add(lManager.items.get(i).name);
+        }
 
+        //Clear and refill date list
+        dateView.getItems().clear();
+        for (int i = 0; i < lManager.items.size(); i++){
+            dateView.getItems().add(lManager.items.get(i).dueDate);
+        }
+    }
 }
