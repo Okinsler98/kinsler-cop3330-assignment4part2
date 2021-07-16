@@ -16,18 +16,23 @@
    <children>
       <AnchorPane layoutX="242.0" layoutY="110.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #e6d0b1;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="400.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="25.0">
          <children>
-            <DatePicker fx:id="dateSelector" layoutX="13.0" layoutY="52.0" onAction="#updateItem" />
-            <Text layoutX="17.0" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Due Date">
+            <DatePicker fx:id="dateSelector" layoutX="13.0" layoutY="30.0" onAction="#updateItem" />
+            <Text layoutX="13.0" layoutY="76.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Current Due Date">
                <font>
                   <Font name="Cooper Black" size="14.0" />
                </font>
             </Text>
-            <Text layoutX="14.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date Selector">
+            <Text layoutX="17.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date Selector">
                <font>
                   <Font name="Cooper Black" size="14.0" />
                </font>
             </Text>
-            <TextField fx:id="dateViewer" editable="false" layoutX="14.0" layoutY="103.0" />
+            <TextField fx:id="dateViewer" editable="false" layoutX="7.0" layoutY="80.0" />
+            <Text fx:id="helpText" fill="RED" layoutX="34.0" layoutY="219.0" strokeType="OUTSIDE" strokeWidth="0.0" text="check readme in git repository" textAlignment="CENTER" visible="false" wrappingWidth="132.3046875">
+               <font>
+                  <Font name="Cooper Black" size="14.0" />
+               </font>
+            </Text>
          </children>
          <effect>
             <DropShadow />
@@ -95,14 +100,14 @@
           </Menu>
           <Menu mnemonicParsing="false" text="View">
             <items>
-              <MenuItem fx:id="allButton" mnemonicParsing="false" onAction="#refreshList" text="All Items" />
-                  <MenuItem fx:id="compButton" mnemonicParsing="false" onAction="#sortCompete" text="Complete Items" />
-                  <MenuItem fx:id="incompButton" mnemonicParsing="false" onAction="#sortIncomplete" text="Incomplete Items" />
+              <MenuItem fx:id="allButton" mnemonicParsing="false" onAction="#refreshList" text="All" />
+                  <MenuItem fx:id="compButton" mnemonicParsing="false" onAction="#sortCompete" text="Complete" />
+                  <MenuItem fx:id="incompButton" mnemonicParsing="false" onAction="#sortIncomplete" text="Incomplete" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Help">
             <items>
-              <MenuItem fx:id="helpButton" mnemonicParsing="false" text="About" />
+              <MenuItem fx:id="helpButton" mnemonicParsing="false" onAction="#helpButton" text="About" />
             </items>
           </Menu>
         </menus>

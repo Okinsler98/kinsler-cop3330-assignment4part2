@@ -11,8 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class ListManagerTest {
 
-    @Test
-    void importList() {
+    @Test    void importList() {
     }
 
     @Test

@@ -10,6 +10,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.text.Text;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -25,6 +26,7 @@ public class GuiManager {
     @FXML private ListView<String> dateView;
     @FXML private TextField directBox;
     @FXML private CheckBox completeCheck;
+    @FXML private Text helpText;
 
     private int itemSelected = 0;
 
@@ -182,5 +184,10 @@ public class GuiManager {
         for (int i = 0; i < lManager.items.size(); i++){
             dateView.getItems().add(lManager.items.get(i).dueDate);
         }
+    }
+
+    @FXML
+    public void helpButton() {
+        helpText.setVisible(!helpText.isVisible());
     }
 }
